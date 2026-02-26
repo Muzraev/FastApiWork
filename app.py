@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from models import UserID
 from models import UserAge
+from models import Feedback
 
 app = FastAPI()
 
@@ -27,3 +28,9 @@ async def get_user():
 async def check_adult(user: UserAge):
     is_adult = user.age >= 18
     return {"name": user.name, "age": user.age, "is_adult": is_adult}
+
+feedbacks = []
+@app.post("/feedback")
+async def create_feedback(feedback: Feedback):
+    feedbacks.append(feedback)
+    return {"message": f"Спасибо, {feedback.name}! Ваш отзыв сохранён."}
