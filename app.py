@@ -1,7 +1,16 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
-my_app = FastAPI()
+app = FastAPI()
 
-@my_app.get("/")
+@app.get("/")
 async def root():
     return {"message": "Автопелоад действительно работает"}
+
+class Numbers(BaseModel):
+    num1: float
+    num2: float
+
+@app.post("/calculate")
+async def calculate(nums: Numbers):
+    return {"result": nums.num1 + nums.num2}
