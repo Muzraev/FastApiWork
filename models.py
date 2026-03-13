@@ -15,7 +15,7 @@ class Feedback(BaseModel):
     @field_validator('message')
     def check_bad_words(cls, v):
         v_lower = v.lower()
-        bad_words = ['крингк', 'рофл', 'вайб']
+        bad_words = ['кринж', 'рофл', 'вайб']
         for word in bad_words:
             if word in v_lower:
                 raise ValueError('Использование недопустимых слов')
